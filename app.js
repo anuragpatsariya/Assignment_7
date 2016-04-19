@@ -1,3 +1,6 @@
+/* jshint node: true, curly: true, eqeqeq: true, forin: true, immed: true, indent: 4, latedef: true, newcap: true, nonew: true, quotmark: double, undef: true, unused: true, strict: true, trailing: true */
+
+"use strict";
 var express = require("express");
 var http = require("http");
 var bodyParser = require("body-parser");
@@ -41,7 +44,7 @@ app.post("/links", function (req, res) {
         } else {
             console.log("Connected for Insert.");
             collection = db.collection("links_objects");
-            collection.insert(doc, { w: 1 }, function (err, record) {
+            collection.insert(doc, { w: 1 }, function () {
                 console.log("Record Added.");
                 res.send("Record Added.");
             });
@@ -50,7 +53,6 @@ app.post("/links", function (req, res) {
 });
 
 app.get("/click/:title", function (req, res) {
-    //var title = req.param.title;
     var collection;
     MongoClient.connect(url, function (err, db) {
         if (err) {
@@ -68,11 +70,11 @@ app.get("/click/:title", function (req, res) {
                     console.log(doc.value.link);
                     res.redirect(doc.value.link);
                 }
-            );
+                );
         }
     });
 });
-//});
+
 
 // Create our Express-powered HTTP server
 // and have it listen on port 3000
